@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="UTF-8">
+	<title>To Do List</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://d.line-scdn.net/r/web/social-plugin/js/thirdparty/loader.min.js" async="async"
+		defer="defer"></script>
+	<script type="text/javascript">
+		$(document).on("click", "#add", function () {
+			$('h3').text('');
+			var i = document.getElementById("num").value;
+			$('#elm').clone().insertBefore($('#putHere')).attr("id", "elm" + i).css('display', 'table-row');
+			$("#elm" + i).children().children().val('');
+			$("#elm" + i).children().children().css('background-color', 'white');
+			$("#elm" + i).children().children().prop('checked', false);
+			$("#elm" + i).children().children().attr('disabled', false);
+			// $("#elm" + i).children().children('#list').prop('required', true);
+			i++;
+			$("#num").val(i);
+		});
+
+		$(function () {
+			if ($('#delete').on('click', function () {
+				$('.ck').each(function () {
+					var status = $(this).val();
+					if (status === "1") {
+						if ($(this).parent().parent().parent().children().length > 4) {
+							$(this).parent().parent().remove();
+						} else {
+							$(this).parent().children('#list').val("");
+							$(this).parent().children('#list').css('background-color', 'white');
+							$(this).val("0");
+							$(this).prop('checked', false);
+						}
+					}
+				});
+			}));
+		});
+
+		$(document).on("click", "#ck", function () {
+			$('h3').text('');
+			var target = $(this);
+			if (target.prop('checked') == false) {
+				target.parent().children('#list').css('background-color', 'white');
+				target.val("0");
+			} else {
+				target.parent().children('#list').css('background-color', 'silver');
+				target.val("1");
+			}
+		});
+	</script>
+	<style>
+		html {
+			touch-action: manipulation;
+		}
+
+		.btn-circle {
+			background-color: #f0f0f0;
+			width: 30px;
+			height: 30px;
+			text-align: center;
+			padding: 6px 0;
+			font-size: 12px;
+			line-height: 1.428571429;
+			border-radius: 15px;
+			display: inline-block;
+			position: relative;
+			bottom: 20px;
+			left: -3vw;
+		}
+
+		.list-form {
+			margin: .5rem 0;
+			width: 90%;
+			height: calc(1.5em + .75rem + 2px);
+			padding: .375rem .75rem;
+			font-size: 1rem;
+			font-weight: 400;
+			line-height: 1.5;
+			color: #495057;
+			background-color: #fff;
+			background-clip: padding-box;
+			border: 1px solid #ced4da;
+			border-radius: .25rem;
+			transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+		}
+
+		.listTd {
+			width: 80vw;
+		}
+
+		/* large screen */
+		@media(min-width: 800px) {
+			.btn-circle {
+				bottom: 20px;
+				left: -7vw;
+			}
+
+			.listTd {
+				width: 90vw;
+			}
+		}
+
+		.title {
+			padding-top: 50px;
+			padding-bottom: 20px;
+		}
+	</style>
+</head>
+
+<body>
+	<div align="center">
+		<div class="title">
+			<h1>Todo List</h1>
+		</div>
+		<!-- <h3>.Message</h3> -->
+		<table width="80%">
+			<tr>
+				<td align="left"><a href="/">back to top page</a></td>
+				<!-- <td align="right">
+					<div class="line-it-button" data-lang="ja" data-type="share-a" data-ver="3" th:data-url="${link}"
+						data-color="default" data-size="small" data-count="false" style="display: none;"></div>
+				</td> -->
+			</tr>
+		</table>
+		<form method="post" action="/save">
+			<input type="hidden" id="num" value="1">
+			<div style="margin-left:auto; margin-right:auto;">
+				<table style="display:inline-block;">
+					<tr id="elm" style="display: none;">
+						<td class="listTd">
+							<input type="checkbox" id="ck" class="ck custom-checkbox" value="" />
+							<input type="text" id="list" class="list list-form" style="background-color: white;"
+								name="content" disabled="disabled" />
+						</td>
+					</tr>
+					{{- range .}}
+					<tr id="elm" class="elm">
+						<td class="listTd">
+							<input type="checkbox" id="ck" class="ck custom-checkbox" value="" />
+							<input value="{{.Content}}" type="text" id="list" class="list list-form"
+								style="background-color: white;" name="content" />
+						</td>
+					</tr>
+					{{- end}}
+					<tr>
+						<td class="listTd">
+							<input type="checkbox" id="ck" class="ck custom-checkbox" />
+							<input type="text" id="list" class="list list-form" name="content" />
+						</td>
+					</tr>
+					<tr id="putHere" style="display: none"></tr>
+				</table>
+				<input type="button" value="add" id="add" class="btn btn-default btn-circle">
+			</div>
+			<input type="button" value="delete" id="delete" class="btn btn-danger">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="submit" value="register" class="btn btn-success">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		</form>
+	</div>
+</body>
+
+</html>

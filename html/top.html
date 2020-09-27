@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="UTF-8">
+	<title>Top</title>
+	<meta name="viewport" content="width=300" user-scalable="no">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script type="text/javascript">
+	</script>
+	<style type="text/css">
+		.list-form {
+			margin: .5rem 0;
+			width: 85%;
+			height: calc(1.5em + .75rem + 2px);
+			padding: .375rem .75rem;
+			font-size: 1rem;
+			font-weight: 400;
+			line-height: 1.5;
+			color: #495057;
+			background-color: #fff;
+			background-clip: padding-box;
+			border: 1px solid #ced4da;
+			border-radius: .25rem;
+			transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+		}
+
+		.title {
+			padding-top: 50px;
+			padding-bottom: 20px;
+		}
+	</style>
+</head>
+
+<body>
+	<div align="center">
+		<div class="title">
+			<h1>Todo List</h1>
+		</div>
+		<form method="post" action="show">
+			<input type="text" name="keyword"
+				placeholder="keyword (If the keyword hasn't been used yet, you can creat a new list.)" id="keyword"
+				class="list list-form" required><br>
+			<input type="submit" value="load a list / creat a new one" id="access"
+				class="btn btn-success">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		</form>
+	</div>
+</body>
+
+</html>
