@@ -14,9 +14,7 @@ func main() {
 	user := os.Getenv("USER")
 	pass := os.Getenv("PASSWORD")
 	path := os.Getenv("DB_PATH")
-	db, err := sql.Open("mysql", user+":"+pass+"@"+"tcp(us-cdbr-east-02.cleardb.com)/"+path)
-	// db, err := sql.Open("mysql", "b7aaf02befbd30:84fcc7f0@tcp(us-cdbr-east-02.cleardb.com)/heroku_8fe516dcd1295f5")
-	// db, err := sql.Open("mysql", "db_user:password@tcp(localhost:3306)/my_db")
+	db, err := sql.Open("mysql", user+":"+pass+"@"+path)
 
 	if err != nil {
 		log.Fatal(err)
